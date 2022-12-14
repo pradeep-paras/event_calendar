@@ -1,0 +1,104 @@
+.customClass {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 100px;
+    border-radius: 12px;
+    /* width: 500px; */
+  }
+
+.modal_div {
+  display: flex;
+}
+
+.inner_div {
+  display: flex;
+  flex-direction: column;
+  margin: 0 15px;
+}
+
+.modal_input {
+
+}
+
+/* Custom Select */
+.select1 {
+  outline: none;
+  padding-left: 4px;
+  text-align: left;
+  font-family: Montserrat;
+  /* font-size: 12px; */
+  /* font-weight: 500; */
+  letter-spacing: 0px;
+  /* opacity: 1; */
+  position: relative;
+  display: flex;
+  border-width: thin;
+  width: 188px;
+  /* border-color: #cac7c7; */
+  height: 30px;
+  line-height: 3;
+  background: #ffffff;
+  overflow: hidden;
+  border-radius: 4px;
+}
+.select1:hover{
+color:black;
+}
+
+.select1 option{
+
+border-radius: 50px;
+height: 100px;
+overflow: hidden;
+}
+/* select {
+flex: 1;
+padding: 0 .5em;
+color: black;
+cursor: pointer;
+} */
+/* Arrow */
+.select1::after {
+border-width: thin;
+border-color: #cac7c7;
+content: '\25BC';
+position: absolute;
+top: 0;
+right: 0;
+padding: 0 1em;
+background: #34495e;
+cursor: pointer;
+pointer-events: none;
+-webkit-transition: .25s all ease;
+-o-transition: .25s all ease;
+transition: .25s all ease;
+}
+/* Transition */
+.select1:hover::after {
+color: #f39c12;
+}
+
+.select1 > option {
+ font-family: Montserrat;
+ padding-top: 10px !important;
+ /* text-indent: 15px; */
+ font-size: 13px;
+ /* background-color: pink; */
+}
+
+.select1 > option:hover{
+ background-color: red;
+}
+
+.select1::selection {
+background-color: blue;
+border-width: thin;
+border-color: #cac7c7;
+}
+
+.select1::selection {
+border-width: thin;
+border-color: #cac7c7;
+}
+/* select css */
