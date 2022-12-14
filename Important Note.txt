@@ -1,0 +1,6 @@
+NOTE: Please run two commands for accessing data
+1. React command
+- npm start
+
+2. JSON command
+- json-server --watch db.json --port 8000
