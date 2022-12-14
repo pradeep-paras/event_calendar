@@ -1,3 +1,15 @@
+# Important!!
+NOTE: Please run another command for accessing and adding calendar data events
+1. React command
+- npm start
+(for starting react server)
+
+2. JSON command
+- json-server --watch db.json --port 8000
+(for json server)
+
+Thanks
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
