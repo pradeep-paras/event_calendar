@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { connect } from "react-redux";
 
 import { Calendar, dateFnsLocalizer } from 'react-big-calendar';
 import DatePicker from 'react-datepicker';
@@ -14,6 +15,7 @@ import getDay from 'date-fns/getDay';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 
 import styles from './style.module.css';
+import { fetchEvents, addEvent } from "../redux/eventAction";
 
 const locales = {
     "en-US": require("date-fns/locale/en-US")
@@ -31,20 +33,20 @@ const EventCalendar = (props) => {
     // states
     const [modal, setModal] = useState(false)
     const [state, setState] = useState({title: '', description: '', start: '', end: ''})
-    const [events, setEvents] = useState([])
+    // const [events, setEvents] = useState([])
     const [date, setDate] = useState('');
     const [date1, setDate1] = useState('');
 
-    const getData = () => {
-        fetch("http://localhost:8000/events").then((res) => {
-            return res.json();
-        }).then((resp) => {
-            setEvents(resp)
-            debugger
-        }).catch((err) => {
-            console.log(err.message);
-        })
-    }
+    // const getData = () => {
+    //     fetch("http://localhost:8000/events").then((res) => {
+    //         return res.json();
+    //     }).then((resp) => {
+    //         setEvents(resp)
+    //         debugger
+    //     }).catch((err) => {
+    //         console.log(err.message);
+    //     })
+    // }
 
     const handleEvent = e => {
         // check all validation
@@ -56,23 +58,28 @@ const EventCalendar = (props) => {
         e.preventDefault()
         let bgcolor = `#${Math.floor(Math.random()*16777215).toString(16)}`
         let data = {...state, bgcolor}
-        fetch("http://localhost:8000/events",{
-        method:"POST",
-        headers:{"content-type":"application/json"},
-        body:JSON.stringify(data)
-      }).then((res)=>{
-        getData()
+        props.addEvent(data)
+    //     fetch("http://localhost:8000/events",{
+    //     method:"POST",
+    //     headers:{"content-type":"application/json"},
+    //     body:JSON.stringify(data)
+    //   }).then((res)=>{
+    //     props.fetchEvents()
+    //     setState({title: '', description: '', start: '', end: ''})
+    //     setDate('')
+    //     setDate1('')
+    //   }).catch((err)=>{
+    //     console.log(err.message)
+    //   })
+        
         setState({title: '', description: '', start: '', end: ''})
         setDate('')
         setDate1('')
-      }).catch((err)=>{
-        console.log(err.message)
-      })
-      setModal(false)
+        setModal(false)
     }
 
     useEffect(() => {
-        getData()
+        props.fetchEvents()
     }, []);
 
     // const handleEvent = () => {
@@ -123,7 +130,7 @@ const EventCalendar = (props) => {
     return (<>
         <Calendar
             localizer={localizer}
-            events={events}
+            events={props.events}
             startAccessor={event => {
                 return new Date(event.start)
             }}
@@ -189,4 +196,17 @@ const EventCalendar = (props) => {
        )
 }
 
-export default EventCalendar
+const mapStateToProps = state => {
+    return {
+        events: state.events
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        addEvent: (data) => dispatch(addEvent(data)),
+        fetchEvents: () => dispatch(fetchEvents())
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(EventCalendar)
